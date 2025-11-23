@@ -6,7 +6,6 @@ homepage: https://github.com/yendoplan/open_app_file
 dependencies:
   flutter:
     sdk: flutter
-  ffi: ^2.1.4
   web: ^1.1.1
 
 environment:
@@ -23,9 +22,3 @@ flutter:
         pluginClass: OpenAppFilePlugin
       web:
         default_package: open_app_file
-      windows:
-        dartPluginClass: OpenAppFilePlugin
-      linux:
-        dartPluginClass: OpenAppFilePlugin
-      macos:
-        dartPluginClass: OpenAppFilePlugin
