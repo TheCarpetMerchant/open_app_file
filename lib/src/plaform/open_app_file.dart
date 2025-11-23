@@ -4,9 +4,6 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:open_app_file/src/common/open_result.dart';
-import 'macos.dart' as mac;
-import 'windows.dart' as windows;
-import 'linux.dart' as linux;
 
 class OpenAppFile {
   static const MethodChannel _channel = const MethodChannel('open_app_file');
@@ -54,18 +51,8 @@ class OpenAppFile {
 
     int result;
     String? errorExtra;
-    if (Platform.isMacOS) {
-      result = mac.system(['open', if (locate) '-R', '$filePath']);
-    } else if (Platform.isLinux) {
-      var filePathLinux = Uri.file(filePath);
-      result = linux.system(['xdg-open', '"${filePathLinux.toString()}"']);
-    } else if (Platform.isWindows) {
-      final windowsResult = windows.shellExecute('open', filePath);
-      errorExtra = ': HINSTANCE=$windowsResult';
-      result = windowsResult <= 32 ? 1 : 0;
-    } else {
-      result = -1;
-    }
+    result = -1;
+    
     return OpenResult(result == 0 ? ResultType.done : ResultType.error,
         message: result == 0
             ? 'done'
